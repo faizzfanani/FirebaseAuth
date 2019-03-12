@@ -30,7 +30,7 @@ public class Registration extends AppCompatActivity {
 
     private Button btnRegist;
     private EditText Email;
-    private EditText Password;
+    private EditText Password,ConfirmPassword;
     private ImageView Login;
     private RelativeLayout loading;
 
@@ -48,6 +48,7 @@ public class Registration extends AppCompatActivity {
         //init views
         Email = findViewById(R.id.etEmailReg);
         Password = findViewById(R.id.etPasswordReg);
+        ConfirmPassword = findViewById(R.id.etRePasswordReg);
         Login = findViewById(R.id.backToLogin);
         btnRegist = findViewById(R.id.btnRegis);
         loading = findViewById(R.id.loading_regist);
@@ -59,6 +60,7 @@ public class Registration extends AppCompatActivity {
                 loading.setVisibility(View.VISIBLE);
                 Email.setEnabled(false);
                 Password.setEnabled(false);
+                ConfirmPassword.setEnabled(false);
                 Login.setEnabled(false);
                 btnRegist.setEnabled(false);
                 SignUp();
@@ -77,10 +79,11 @@ public class Registration extends AppCompatActivity {
     private void SignUp(){
         String email = Email.getText().toString().trim();
         String pass = Password.getText().toString().trim();
+        String confirmPass = ConfirmPassword.getText().toString().trim();
 
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
-        if (!TextUtils.isEmpty(email)&&!TextUtils.isEmpty(pass)&&pass.length()>5&&email.matches(emailPattern)){
+        if (!TextUtils.isEmpty(email)&&!TextUtils.isEmpty(pass)&&pass.length()>5&&email.matches(emailPattern)&&pass.equals(confirmPass)){
             cekEmail();
         }else{
             if (TextUtils.isEmpty(email)&&!TextUtils.isEmpty(pass)){
@@ -91,6 +94,8 @@ public class Registration extends AppCompatActivity {
                 Toast.makeText(this, "Please fill the email and password fields!",Toast.LENGTH_SHORT).show();
             }else if (pass.length()<6){
                 Toast.makeText(this, "Password must have at least 6 characters",Toast.LENGTH_SHORT).show();
+            }else if (!confirmPass.equals(pass)){
+                Toast.makeText(this, "Please re-type password correctly!",Toast.LENGTH_SHORT).show();
             }else if(!email.matches(emailPattern)){
                 Toast.makeText(this, "email format : example@domain.com",Toast.LENGTH_SHORT).show();
             }
@@ -98,6 +103,7 @@ public class Registration extends AppCompatActivity {
             loading.setVisibility(View.GONE);
             Email.setEnabled(true);
             Password.setEnabled(true);
+            ConfirmPassword.setEnabled(true);
             Login.setEnabled(true);
             btnRegist.setEnabled(true);
         }
@@ -142,6 +148,7 @@ public class Registration extends AppCompatActivity {
 
             Email.getText().clear();
             Password.getText().clear();
+            ConfirmPassword.getText().clear();
 
             closeKeyboard();
             Toast.makeText(this,"Registration success!",Toast.LENGTH_SHORT).show();
@@ -152,6 +159,7 @@ public class Registration extends AppCompatActivity {
         loading.setVisibility(View.GONE);
         Email.setEnabled(true);
         Password.setEnabled(true);
+        ConfirmPassword.setEnabled(true);
         Login.setEnabled(true);
         btnRegist.setEnabled(true);
     }

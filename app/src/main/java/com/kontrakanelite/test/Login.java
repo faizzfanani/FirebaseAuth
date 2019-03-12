@@ -32,6 +32,7 @@ public class Login extends AppCompatActivity {
     private RelativeLayout loading;
 
     public static final String USER_EMAIL = "user_email";
+    public static String getEmail;
 
     DatabaseReference databaseRef;
 
@@ -131,6 +132,7 @@ public class Login extends AppCompatActivity {
             Toast.makeText(this,"Email or Password is wrong!",Toast.LENGTH_LONG).show();
         }else{
             Toast.makeText(this,"Login success!",Toast.LENGTH_LONG).show();
+            getEmail = Email.getText().toString();
             Intent intent = new Intent(getApplicationContext(),Home.class);
             intent.putExtra(USER_EMAIL,status);
             startActivity(intent);
